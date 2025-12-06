@@ -46,7 +46,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="w-full bg-white mt-10 py-16 px-4 flex flex-col items-center text-center">
+    <section className="w-full bg-white py-16 px-4 flex flex-col items-center text-center">
       {/* Time Box */}
       <div className="bg-green-900 text-white px-6 py-2 rounded-full text-xl font-semibold shadow-md">
         {time}

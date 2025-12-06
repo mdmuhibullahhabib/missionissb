@@ -38,12 +38,12 @@ export default function Navbar() {
                 {/* Auth Buttons */}
                 <div className="hidden items-center md:flex gap-4">
                     {/* Desktop Menu */}
-                    <div className="hidden md:flex gap-8">
+                    <div className="hidden text-black font-semibo md:flex gap-8">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
-                                className="text-gray-700 font-semibold hover:text-blue-600 transition font-medium"
+                                className="text-gray-700 hover:text-blue-600 transition font-medium"
                             >
                                 {link.name}
                             </Link>

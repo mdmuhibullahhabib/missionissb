@@ -35,7 +35,7 @@ const courses = [
   },
 ];
 
-export default function Courses() {
+export default function CoursesSection() {
   return (
     <section className="py-16 bg-gray-50 px-4 md:px-10">
       <div className="text-center mb-12">
