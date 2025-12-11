@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Lock, Play } from "lucide-react";
 
-export default function IqTest() {
+export default function ModelTestList() {
   // Fake user data
   const user = {
     name: "Rakib Hasan",
