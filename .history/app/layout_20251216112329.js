@@ -1,10 +1,10 @@
-// "use client"
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
+import Footer from '@/components/shared/Footer'
+import Navbar from '@/components/shared/Navbar'
 import NextAuthProvider from './providers/NextAuthProvider'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import { Toaster } from 'react-hot-toast'
-import QueryProvider from './providers/QueryProvider'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -27,15 +27,15 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <QueryProvider>
         <NextAuthProvider>
+                  <QueryClientProvider client={queryClient}>
 
           <Toaster />
           
           <LayoutWrapper>{children}</LayoutWrapper>
+          </QueryClientProvider>
 
         </NextAuthProvider>
-        </QueryProvider>
       </body>
     </html>
   )

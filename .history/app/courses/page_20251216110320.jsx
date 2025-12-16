@@ -1,6 +1,5 @@
 "use client";
 
-import useSubscriptions from "@/hooks/useSubscriptions";
 import { motion } from "framer-motion";
 import { BookOpen, Brain, Target, Lightbulb } from "lucide-react";
 import Link from "next/link";
@@ -38,8 +37,6 @@ const courses = [
 
 export default function Courses() {
     const { data, isLoading, error } = useSubscriptions();
-
-    console.log(data, "subscription") 
 
   return (
     <section className="py-16 bg-gray-50 px-4 md:px-10">

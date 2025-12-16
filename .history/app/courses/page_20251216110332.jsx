@@ -39,7 +39,7 @@ const courses = [
 export default function Courses() {
     const { data, isLoading, error } = useSubscriptions();
 
-    console.log(data, "subscription") 
+    clg
 
   return (
     <section className="py-16 bg-gray-50 px-4 md:px-10">

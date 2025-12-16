@@ -5,7 +5,7 @@ export const collectionNamesobj = {
     userCollection : "users",
     cartCollection : "carts",
     ordersCollection : "orders",
-    subscriptionsCollection : "subscriptions"
+    subscriptionCollection : "subscriptions"
 }
 
 export default function dbConnect(collectionName){

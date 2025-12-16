@@ -23,7 +23,7 @@ export default function IqTest() {
 
   const [showModal, setShowModal] = useState(false);
       const { data, isLoading, error } = useSubscriptions();
-      console.log("subscription data", data)
+      console.log("subscription data")
   
 
   const isSubscribed = user.subscription === "active";

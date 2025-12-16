@@ -4,8 +4,8 @@ export const collectionNamesobj = {
     productsCollection : "products",
     userCollection : "users",
     cartCollection : "carts",
-    ordersCollection : "orders",
-    subscriptionsCollection : "subscriptions"
+    ordersCollection : "orders"
+    ordersCollection : "orders"
 }
 
 export default function dbConnect(collectionName){

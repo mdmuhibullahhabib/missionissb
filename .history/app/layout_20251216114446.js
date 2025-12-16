@@ -4,6 +4,7 @@ import './globals.css'
 import NextAuthProvider from './providers/NextAuthProvider'
 import LayoutWrapper from '@/components/LayoutWrapper'
 import { Toaster } from 'react-hot-toast'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import QueryProvider from './providers/QueryProvider'
 
 const geistSans = Geist({
@@ -27,7 +28,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-         <QueryProvider>
+                <QueryProvider>
         <NextAuthProvider>
 
           <Toaster />

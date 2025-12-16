@@ -3,14 +3,13 @@
 import { useState } from "react";
 import AsideMenu from "./components/AsideMenu";
 import PracticeQuestions from "./components/PracticeQuestions";
-import useSubscriptions from "@/hooks/useSubscriptions";
 
 const IqPracticePage = () => {
   // ✅ SINGLE SOURCE OF TRUTH
   const [examType, setExamType] = useState("Verbal");
   const [category, setCategory] = useState("");
-  const { data, isLoading, error } = useSubscriptions ();
-  console.log("subscription data", data)
+        const { data, isLoading, error } = useSubscriptions();
+        console.log("subscription data", data)
 
   return (
     <div className="mt-10 flex">

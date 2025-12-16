@@ -9,8 +9,8 @@ const IqPracticePage = () => {
   // ✅ SINGLE SOURCE OF TRUTH
   const [examType, setExamType] = useState("Verbal");
   const [category, setCategory] = useState("");
-  const { data, isLoading, error } = useSubscriptions ();
-  console.log("subscription data", data)
+        const { data, isLoading, error } = useSubscriptions();
+        console.log("subscription data", data)
 
   return (
     <div className="mt-10 flex">
