@@ -18,7 +18,7 @@ export async function GET(req) {
       return NextResponse.json(user ?? null, { status: 200 });
     }
 
-    // যদি email না থাকে → সব user
+    // 🔹 যদি email না থাকে → সব user
     const users = await usersCollection.find({}).toArray();
 
     return NextResponse.json(users, { status: 200 });

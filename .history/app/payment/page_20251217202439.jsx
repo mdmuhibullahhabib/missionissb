@@ -4,7 +4,7 @@ import React from 'react'
 
 const page = () => {
     const { user, isLoading } = useUser();
-    console.log(user)
+    console.log(first)
 
   return (
     <div>page</div>

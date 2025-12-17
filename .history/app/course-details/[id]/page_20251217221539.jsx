@@ -4,7 +4,6 @@ import Image from "next/image";
 import { CheckCircle, PlayCircle } from "lucide-react";
 import LectureDetailsAccordion from "./components/GAQDivision";
 
-
 export default function CourseDetails() {
   /* ================= SINGLE COURSE DATA ================= */
   const courseData = {

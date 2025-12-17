@@ -3,37 +3,39 @@
 import { useQuery } from "@tanstack/react-query";
 import { useSession } from "next-auth/react";
 
-export default function useUser() {
+export default function useSubscriptions() {
   const { data: session, status } = useSession();
   const email = session?.user?.email;
 
   const {
-    data: user,
+    data: subscription = [],
     isLoading,
     isError,
     error,
     refetch,
   } = useQuery({
-    queryKey: ["user", email],
+    queryKey: ["subscriptions", email],
     enabled: !!email && status === "authenticated",
     queryFn: async () => {
-      const res = await fetch(`/api/users?email=${email}`);
+      const res = await fetch(
+        `/api/subscriptions?email=${email}`
+      );
 
       if (!res.ok) {
-        throw new Error("User ডাটা আনতে সমস্যা হয়েছে");
+        throw new Error("Subscription ডাটা আনতে সমস্যা হয়েছে");
       }
 
       const data = await res.json();
 
-      console.log("Fetched user by email:", data);
+      //  fetched data log
+      console.log("Fetched subscriptions (inside hook):", data);
 
-      // যদি array আসে, single user নাও
-      return Array.isArray(data) ? data[0] : data;
+      return data;
     },
   });
 
   return {
-    user,
+    subscription,
     isLoading,
     isError,
     error,

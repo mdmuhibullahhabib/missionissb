@@ -11,14 +11,14 @@ export async function GET(req) {
       collectionNamesobj.usersCollection
     );
 
-    // যদি email থাকে → single user
+    // 🔹 যদি email থাকে → single user
     if (email) {
       const user = await usersCollection.findOne({ email });
 
       return NextResponse.json(user ?? null, { status: 200 });
     }
 
-    // যদি email না থাকে → সব user
+    // 🔹 যদি email না থাকে → সব user
     const users = await usersCollection.find({}).toArray();
 
     return NextResponse.json(users, { status: 200 });

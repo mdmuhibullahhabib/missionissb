@@ -17,34 +17,58 @@ const McqCard = () => {
       title: "Find the next: 10, 30, 68, 130, ?, ?",
       options: ["150, 190", "222, 350", "165, 190", "225, 350"],
       correctIndex: 1,
-      explanation:
-        "এই সিরিজে পার্থক্য বৃদ্ধি পাচ্ছে: +20, +38, +62 → পরেরটি +92।",
     },
     {
       title: "Find the odd one out",
       options: ["VUTS", "NUTS", "PONM", "LKJI"],
       correctIndex: 1,
-      explanation:
-        "NUTS শব্দটি বাকি গুলোর মতো reverse alphabetical order এ নেই।",
     },
     {
-      title:
-        "If A = 1, B = 2 ... Z = 26, what is the value of CAT?",
+      title: "If A = 1, B = 2 ... Z = 26, what is the value of CAT?",
       options: ["24", "26", "27", "29"],
       correctIndex: 0,
-      explanation: "C = 3, A = 1, T = 20 → মোট = 24",
     },
     {
       title: "Find the missing number: 5, 10, 20, 40, ?",
       options: ["45", "60", "80", "100"],
       correctIndex: 2,
-      explanation: "প্রতিটি সংখ্যাকে 2 দিয়ে গুণ করা হয়েছে।",
+    },
+    {
+      title: "Which word does not belong to the group?",
+      options: ["Chair", "Table", "Bed", "Door"],
+      correctIndex: 3,
+    },
+    {
+      title: "Find the next number: 1, 4, 9, 16, ?",
+      options: ["20", "25", "30", "36"],
+      correctIndex: 1,
+    },
+    {
+      title:
+        "If 5 men can complete a work in 10 days, how many days will 10 men take?",
+      options: ["2", "5", "10", "20"],
+      correctIndex: 1,
+    },
+    {
+      title: "Find the missing number: 3, 9, 27, ?, 243",
+      options: ["54", "72", "81", "108"],
+      correctIndex: 2,
+    },
+    {
+      title: "Find the odd one out",
+      options: ["Rose", "Lotus", "Lily", "Mango"],
+      correctIndex: 3,
+    },
+    {
+      title:
+        "If today is Monday, what day will it be after 15 days?",
+      options: ["Tuesday", "Wednesday", "Thursday", "Friday"],
+      correctIndex: 2,
     },
   ];
 
   /* ---------------- STATE ---------------- */
   const [answers, setAnswers] = useState({});
-  const [openExplanation, setOpenExplanation] = useState({});
   const [showModal, setShowModal] = useState(false);
 
   const handleSelect = (qIndex, optIndex) => {
@@ -54,17 +78,9 @@ const McqCard = () => {
     }
     if (answers[qIndex] !== undefined) return;
 
-    setAnswers((prev) => ({ ...prev, [qIndex]: optIndex }));
-  };
-
-  const toggleExplanation = (qIndex) => {
-    if (!isSubscribed) {
-      setShowModal(true);
-      return;
-    }
-    setOpenExplanation((prev) => ({
+    setAnswers((prev) => ({
       ...prev,
-      [qIndex]: !prev[qIndex],
+      [qIndex]: optIndex,
     }));
   };
 
@@ -99,6 +115,7 @@ const McqCard = () => {
                   ? "blur-[2px] opacity-60 select-none"
                   : ""
               }`}
+              onClick={() => !isSubscribed && setShowModal(true)}
             >
               {qIndex + 1}. {q.title}
             </h3>
@@ -108,7 +125,9 @@ const McqCard = () => {
               {q.options.map((opt, i) => (
                 <div
                   key={i}
-                  onClick={() => handleSelect(qIndex, i)}
+                  onClick={() =>
+                    handleSelect(qIndex, i)
+                  }
                   className={`px-4 py-3 rounded-lg border cursor-pointer transition-all ${getOptionStyle(
                     qIndex,
                     i,
@@ -119,21 +138,6 @@ const McqCard = () => {
                 </div>
               ))}
             </div>
-
-            {/* EXPLANATION BUTTON */}
-            <button
-              onClick={() => toggleExplanation(qIndex)}
-              className="mt-4 px-4 py-2 border border-green-600 text-green-700 rounded-lg hover:bg-green-50"
-            >
-              Show Explanation
-            </button>
-
-            {/* EXPLANATION TEXT */}
-            {openExplanation[qIndex] && (
-              <p className="mt-3 text-gray-700 text-sm">
-                <strong>Explanation:</strong> {q.explanation}
-              </p>
-            )}
 
             {/* LOCK BADGE */}
             {!isSubscribed && (
@@ -153,7 +157,7 @@ const McqCard = () => {
               Get Full Access
             </h2>
             <p className="text-gray-600 text-center text-sm">
-              Explanation দেখতে হলে subscription প্রয়োজন।
+              Unlock all questions by buying subscription.
             </p>
 
             <button className="w-full mt-5 bg-green-600 text-white py-2 rounded-lg">
