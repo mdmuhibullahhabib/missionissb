@@ -1,4 +1,3 @@
-// CourseDetails.jsx
 "use client";
 
 import Image from "next/image";
@@ -9,13 +8,13 @@ import useCourses from "@/hooks/useCourses";
 
 export default function CourseDetails() {
   const { courses, isLoading, isError, error } = useCourses();
-  const params = useParams(); // { slug: "course-slug" }
+  const params = useParams(); // e.g., { slug: "live-issb-course" }
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
-  // Find course by slug
-  const courseData = courses?.find((course) => course.slug === params.id);
+  // Filter the course by slug from params
+  const courseData = courses?.find((course) => course.slug === params.slug);
 
   if (!courseData) return <p>Course not found</p>;
 
@@ -29,7 +28,7 @@ export default function CourseDetails() {
 
         {/* FEATURES */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-xl">
-          {courseData.features?.map((item) => (
+          {courseData.features.map((item) => (
             <div key={item} className="flex items-center gap-2 text-sm">
               <CheckCircle className="w-4 h-4 text-green-600" />
               <span>{item}</span>
@@ -39,14 +38,14 @@ export default function CourseDetails() {
 
         {/* DETAILS */}
         <Section title="কোর্সের বিস্তারিত বিবরণ">
-          {courseData.details?.map((item) => (
+          {courseData.details.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </Section>
 
         {/* AUDIENCE */}
         <Section title="এই সাবস্ক্রিপশনটি যাদের জন্য">
-          {courseData.audience?.map((item) => (
+          {courseData.audience.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </Section>
@@ -66,7 +65,7 @@ export default function CourseDetails() {
         <div className="relative rounded-xl overflow-hidden">
           <Image
             src={courseData.image}
-            alt={courseData.title}
+            alt="Course Preview"
             width={400}
             height={220}
             className="w-full object-cover"
@@ -86,7 +85,7 @@ export default function CourseDetails() {
         <div className="border-t pt-3">
           <h4 className="font-semibold text-sm mb-2">This course includes:</h4>
           <ul className="text-sm space-y-1">
-            {courseData.includes?.map((item) => (
+            {courseData.includes.map((item) => (
               <li key={item}>✔ {item}</li>
             ))}
           </ul>

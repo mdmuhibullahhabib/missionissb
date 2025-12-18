@@ -5,7 +5,8 @@ import Link from "next/link";
 import useCourses from "@/hooks/useCourses";
 
 export default function CourseCards() {
-  const { courses, isLoading, isError, error } = useCourses();
+  const { courses, isLoading, isError } = useCourses();
+  console.log(first)
 
   if (isLoading) {
     return <p className="text-center py-10">Loading courses...</p>;

@@ -15,7 +15,7 @@ export default function CourseDetails() {
   if (isError) return <p>Error: {error.message}</p>;
 
   // Find course by slug
-  const courseData = courses?.find((course) => course.slug === params.id);
+  const courseData = courses?.find((course) => course.slug === params.slug);
 
   if (!courseData) return <p>Course not found</p>;
 

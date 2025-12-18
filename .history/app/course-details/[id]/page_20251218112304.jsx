@@ -1,4 +1,3 @@
-// CourseDetails.jsx
 "use client";
 
 import Image from "next/image";
@@ -7,29 +6,32 @@ import LectureDetailsAccordion from "./components/GAQDivision";
 import { useParams } from "next/navigation";
 import useCourses from "@/hooks/useCourses";
 
+
 export default function CourseDetails() {
-  const { courses, isLoading, isError, error } = useCourses();
-  const params = useParams(); // { slug: "course-slug" }
+  /* ================= SINGLE COURSE DATA ================= */
 
-  if (isLoading) return <p>Loading...</p>;
-  if (isError) return <p>Error: {error.message}</p>;
 
-  // Find course by slug
-  const courseData = courses?.find((course) => course.slug === params.id);
-
-  if (!courseData) return <p>Course not found</p>;
+    const { courses, isLoading, isError, error } = useCourses();
+  
+    console.log("HOOK COURSES 👉", courses);
+  const params = useParams();
+  console.log(params)
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
       {/* ================= LEFT ================= */}
       <div className="lg:col-span-2 space-y-6">
-        <h1 className="text-2xl md:text-3xl font-bold">{courseData.title}</h1>
+        <h1 className="text-2xl md:text-3xl font-bold">
+          {courseData.title}
+        </h1>
 
-        <p className="text-gray-600 leading-relaxed">{courseData.description}</p>
+        <p className="text-gray-600 leading-relaxed">
+          {courseData.description}
+        </p>
 
         {/* FEATURES */}
         <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-xl">
-          {courseData.features?.map((item) => (
+          {courseData.features.map((item) => (
             <div key={item} className="flex items-center gap-2 text-sm">
               <CheckCircle className="w-4 h-4 text-green-600" />
               <span>{item}</span>
@@ -39,14 +41,14 @@ export default function CourseDetails() {
 
         {/* DETAILS */}
         <Section title="কোর্সের বিস্তারিত বিবরণ">
-          {courseData.details?.map((item) => (
+          {courseData.details.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </Section>
 
         {/* AUDIENCE */}
         <Section title="এই সাবস্ক্রিপশনটি যাদের জন্য">
-          {courseData.audience?.map((item) => (
+          {courseData.audience.map((item) => (
             <li key={item}>{item}</li>
           ))}
         </Section>
@@ -54,11 +56,16 @@ export default function CourseDetails() {
         {/* MENTOR */}
         <div className="border rounded-xl p-5">
           <h2 className="font-semibold mb-2">মেন্টরদের সম্পর্কে</h2>
-          <p className="text-sm text-gray-700">{courseData.mentorInfo}</p>
+          <p className="text-sm text-gray-700">
+            {courseData.mentorInfo}
+          </p>
         </div>
 
         {/* LECTURE + FAQ */}
-        <LectureDetailsAccordion lectures={courseData.lectures} faqs={courseData.faqs} />
+        <LectureDetailsAccordion
+          lectures={courseData.lectures}
+          faqs={courseData.faqs}
+        />
       </div>
 
       {/* ================= RIGHT ================= */}
@@ -66,7 +73,7 @@ export default function CourseDetails() {
         <div className="relative rounded-xl overflow-hidden">
           <Image
             src={courseData.image}
-            alt={courseData.title}
+            alt="Course Preview"
             width={400}
             height={220}
             className="w-full object-cover"
@@ -75,8 +82,12 @@ export default function CourseDetails() {
         </div>
 
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-bold text-green-700">৳{courseData.price.current}</span>
-          <span className="line-through text-gray-400">৳{courseData.price.old}</span>
+          <span className="text-2xl font-bold text-green-700">
+            ৳{courseData.price.current}
+          </span>
+          <span className="line-through text-gray-400">
+            ৳{courseData.price.old}
+          </span>
         </div>
 
         <button className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-xl">
@@ -84,9 +95,11 @@ export default function CourseDetails() {
         </button>
 
         <div className="border-t pt-3">
-          <h4 className="font-semibold text-sm mb-2">This course includes:</h4>
+          <h4 className="font-semibold text-sm mb-2">
+            This course includes:
+          </h4>
           <ul className="text-sm space-y-1">
-            {courseData.includes?.map((item) => (
+            {courseData.includes.map((item) => (
               <li key={item}>✔ {item}</li>
             ))}
           </ul>
@@ -101,7 +114,9 @@ function Section({ title, children }) {
   return (
     <div className="border rounded-xl p-5">
       <h2 className="font-semibold mb-3">{title}</h2>
-      <ul className="list-disc ml-5 space-y-1 text-sm text-gray-700">{children}</ul>
+      <ul className="list-disc ml-5 space-y-1 text-sm text-gray-700">
+        {children}
+      </ul>
     </div>
   );
 }
