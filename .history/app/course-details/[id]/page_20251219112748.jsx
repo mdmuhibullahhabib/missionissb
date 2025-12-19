@@ -6,10 +6,17 @@ import { CheckCircle, PlayCircle } from "lucide-react";
 import LectureDetailsAccordion from "./components/GAQDivision";
 import { useParams } from "next/navigation";
 import useCourses from "@/hooks/useCourses";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+
 
 export default function CourseDetails() {
   const { courses, isLoading, isError, error } = useCourses();
-  const params = useParams(); // { slug: "course-slug" }
+  const params = useParams();
+      const { data: session, status } = useSession();
+      const router = useRouter();
+      console.log(useSession, "usesession")
+  
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
@@ -20,47 +27,65 @@ export default function CourseDetails() {
   if (!courseData) return <p>Course not found</p>;
 
 
-  const handleBuySubscription = async () => {
-    try {
-      // 1️⃣ Redirect to bkash payment page (simulate / replace with real gateway)
-      // Example: window.location.href = "https://payment.bkash.com/checkout?amount=...&ref=...";
-      alert(`Redirecting to Bkash Payment Gateway for ৳${courseData.price.current}`);
+const handleBuySubscription = async () => {
+  try {
+    // ================= 1️⃣ Check user login =================
 
-      // 2️⃣ Simulate Payment Success (Replace this with real webhook/callback)
-      const paymentSuccess = true; // in real scenario, check gateway response
-      const transactionId = "BKASH123456789"; // gateway returns transaction id
-
-      if (paymentSuccess) {
-        // 3️⃣ Post subscription data to backend API
-        const res = await fetch("/api/subscription/create", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            courseId: courseData._id,
-            planId: courseData.slug,
-            price: courseData.price.current,
-            currency: "BDT",
-            userId: "CURRENT_USER_ID", // replace with auth user id
-            transactionId,
-            paymentMethod: "bkash",
-            status: "active",
-            autoRenew: false,
-          }),
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          alert("Subscription successful!");
-          router.push("/"); // redirect to home
-        } else {
-          alert("Failed to create subscription: " + data.error);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong with payment");
+    if (!session?.user?.email) {
+      // ❌ User not logged in → redirect to auth
+      router.push("/auth");
+      return;
     }
-  };
+
+    // ================= 2️⃣ Redirect to bKash Payment =================
+    // 👉 এখানে normally bKash checkout URL generate করবে backend থেকে
+    // এখন demo হিসেবে simulate করা হলো
+    alert(`Redirecting to bKash for ৳${courseData.price.current}`);
+
+    // ================= 3️⃣ Payment success simulation =================
+    // ⚠️ Real project এ এই অংশটা আসে bKash callback / webhook থেকে
+    const paymentSuccess = true;
+    const transactionId = "BKASH_" + Date.now();
+
+    if (!paymentSuccess) {
+      alert("Payment failed");
+      return;
+    }
+
+    // ================= 4️⃣ Save subscription to MongoDB =================
+    const res = await fetch("/api/subscription/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        userId: session.user.id,
+        courseId: courseData._id,
+        planId: courseData.slug,
+        price: courseData.price.current,
+        currency: "BDT",
+        paymentMethod: "bkash",
+        transactionId,
+        status: "active",
+        autoRenew: false,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      alert(data.error || "Subscription failed");
+      return;
+    }
+
+    // ================= 5️⃣ Success → Redirect =================
+    alert("Subscription successful!");
+    router.push("/"); // or /dashboard
+
+  } catch (error) {
+    console.error("Subscription Error:", error);
+    alert("Something went wrong. Please try again.");
+  }
+};
+
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">

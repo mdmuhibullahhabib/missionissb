@@ -9,7 +9,9 @@ import useCourses from "@/hooks/useCourses";
 
 export default function CourseDetails() {
   const { courses, isLoading, isError, error } = useCourses();
-  const params = useParams(); // { slug: "course-slug" }
+  const params = useParams();
+      const { data: session, status } = useSession();
+  
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;

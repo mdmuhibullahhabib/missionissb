@@ -1,66 +1,33 @@
-
-"use client";
+"use client"
 
 import Image from "next/image";
 import { CheckCircle, PlayCircle } from "lucide-react";
 import LectureDetailsAccordion from "./components/GAQDivision";
 import { useParams } from "next/navigation";
 import useCourses from "@/hooks/useCourses";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+
 
 export default function CourseDetails() {
   const { courses, isLoading, isError, error } = useCourses();
-  const params = useParams(); // { slug: "course-slug" }
+  const params = useParams();
+  const { data: session, status } = useSession();
+  const router = useRouter();
+  console.log(session)
+
 
   if (isLoading) return <p>Loading...</p>;
   if (isError) return <p>Error: {error.message}</p>;
 
-  // Find course by slug
+  // Find course 
   const courseData = courses?.find((course) => course.slug === params.id);
 
   if (!courseData) return <p>Course not found</p>;
 
 
-  const handleBuySubscription = async () => {
-    try {
-      // 1️⃣ Redirect to bkash payment page (simulate / replace with real gateway)
-      // Example: window.location.href = "https://payment.bkash.com/checkout?amount=...&ref=...";
-      alert(`Redirecting to Bkash Payment Gateway for ৳${courseData.price.current}`);
 
-      // 2️⃣ Simulate Payment Success (Replace this with real webhook/callback)
-      const paymentSuccess = true; // in real scenario, check gateway response
-      const transactionId = "BKASH123456789"; // gateway returns transaction id
 
-      if (paymentSuccess) {
-        // 3️⃣ Post subscription data to backend API
-        const res = await fetch("/api/subscription/create", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            courseId: courseData._id,
-            planId: courseData.slug,
-            price: courseData.price.current,
-            currency: "BDT",
-            userId: "CURRENT_USER_ID", // replace with auth user id
-            transactionId,
-            paymentMethod: "bkash",
-            status: "active",
-            autoRenew: false,
-          }),
-        });
-
-        const data = await res.json();
-        if (res.ok) {
-          alert("Subscription successful!");
-          router.push("/"); // redirect to home
-        } else {
-          alert("Failed to create subscription: " + data.error);
-        }
-      }
-    } catch (err) {
-      console.error(err);
-      alert("Something went wrong with payment");
-    }
-  };
 
   return (
     <section className="max-w-7xl mx-auto px-4 py-8 grid grid-cols-1 lg:grid-cols-3 gap-8">
@@ -123,8 +90,8 @@ export default function CourseDetails() {
         </div>
 
         <button
-                  onClick={handleBuySubscription} 
-                   className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-xl">
+          onClick={handleBuySubscription}
+          className="w-full bg-green-700 hover:bg-green-800 text-white py-2 rounded-xl">
           সাবস্ক্রিপশন কিনুন
         </button>
 

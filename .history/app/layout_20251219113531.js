@@ -34,8 +34,8 @@ export default function RootLayout({ children }) {
           
           <LayoutWrapper>{children}</LayoutWrapper>
 
-        </QueryProvider>
         </NextAuthProvider>
+        </QueryProvider>
       </body>
     </html>
   )
