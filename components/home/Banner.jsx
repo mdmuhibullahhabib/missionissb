@@ -7,7 +7,7 @@ import issb from "../../public/banner/issb.jpeg";
 
 export default function Banner() {
   return (
-    <section className="relative w-full min-h-[100vh] overflow-hidden mt-[-80px]">
+    <section className="relative w-full md:min-h-[100vh] overflow-hidden mt-[-80px]">
 
       {/* ================= Background Image ================= */}
       <Image
