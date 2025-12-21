@@ -52,7 +52,7 @@ export default function Banner() {
         </Link>
 
         {/* Bottom Buttons */}
-        <div className="flex flex-wrap justify-center gap-4">
+        <div className="flex flex-wrap justify-center gap-">
           <Link
             href="/issb/iq-practice"
             className="px-8 py-3 rounded-full bg-white text-black
