@@ -93,7 +93,7 @@ export default function Navbar() {
                                     href="/auth"
                                     className="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition"
                                 >
-                                    লগ ইন
+                                    Login
                                 </Link>
                             )}
                         </button>
@@ -125,11 +125,11 @@ export default function Navbar() {
                         <hr />
 
                         <Link
-                            href="/auth"
+                            href="/auth/login"
                             onClick={() => setOpen(false)}
                             className="text-blue-600 font-semibold"
                         >
-                            লগ ইন
+                            Login
                         </Link>
                     </div>
                 </div>

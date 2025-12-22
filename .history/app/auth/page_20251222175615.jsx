@@ -19,15 +19,15 @@ export default function AuthPage() {
       <div className=" flex justify-center items-center bg-gray-50 px-4">
         <div className="w-full max-w-md bg-white rounded-3xl shadow-lg px-8 py-10">
           <Link href="/" className="text-sm text-gray-500 mb-4 inline-block hover:underline">
-            ← হোমে ফিরে যান
+            ← Back to home
           </Link>
 
           <div className="flex justify-center mb-4">
             <div className="w-16 h-16 bg-[#FE6A44] rounded-2xl"></div>
           </div>
 
-          <h2 className="text-xl font-semibold text-center mb-2">মিশন আইএসএসবি-তে স্বাগতম</h2>
-          <p className="text-gray-500 text-sm text-center mb-5">
+          <h2 className="text-xl font-semibold text-center">Welcome to Mission ISSB</h2>
+          <p className="text-gray-500 text-sm text-center mb-6">
             আপনার অ্যাকাউন্টে লগইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন
           </p>
 

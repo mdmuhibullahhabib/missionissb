@@ -125,11 +125,11 @@ export default function Navbar() {
                         <hr />
 
                         <Link
-                            href="/auth"
+                            href="/auth/login"
                             onClick={() => setOpen(false)}
                             className="text-blue-600 font-semibold"
                         >
-                            লগ ইন
+                            Login
                         </Link>
                     </div>
                 </div>

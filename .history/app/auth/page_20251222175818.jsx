@@ -27,7 +27,7 @@ export default function AuthPage() {
           </div>
 
           <h2 className="text-xl font-semibold text-center mb-2">মিশন আইএসএসবি-তে স্বাগতম</h2>
-          <p className="text-gray-500 text-sm text-center mb-5">
+          <p className="text-gray-500 text-sm text-center mb-6">
             আপনার অ্যাকাউন্টে লগইন করুন অথবা একটি নতুন অ্যাকাউন্ট তৈরি করুন
           </p>
 
